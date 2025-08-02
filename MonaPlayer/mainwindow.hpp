@@ -1,19 +1,23 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include <QSystemTrayIcon>
 #include <QApplication>
 #include <QMediaPlayer>
+#include <QMessageBox>
 #include <QFileDialog>
 #include <QMainWindow>
-#include <QMessageBox>
+#include <QCloseEvent>
+#include <QAction>
 #include <QString>
-#include <QUrl>
-
-#include <QSystemTrayIcon>
 #include <QStyle>
 #include <QMenu>
-#include <QAction>
-#include <QCloseEvent>
+#include <QUrl>
+
+#ifdef Q_OS_LINUX
+#include <QDBusInterface>
+#include <QDBusReply>
+#endif
 
 #include <iostream>
 #include <string>
@@ -94,6 +98,7 @@ private:
     QAction         *showAction;
     QAction         *quitAction;
     void            createTrayIcon();
+    void            setupPlatformSpecificTray();
 
     bool            isQuitting;
     bool            sliderTempoMovendo;
