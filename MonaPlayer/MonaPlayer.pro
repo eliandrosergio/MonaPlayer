@@ -16,14 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ft_music.cpp \
+    ft_tray.cpp \
     main.cpp \
-    mainwindow.cpp \
-    musicfuncs.cpp \
-    mylib.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    mainwindow.hpp \
-    mylib.hpp
+    mainwindow.hpp
 
 FORMS += \
     mainwindow.ui

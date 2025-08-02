@@ -5,13 +5,19 @@
 #include <QMediaPlayer>
 #include <QFileDialog>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QString>
 #include <QUrl>
+
+#include <QSystemTrayIcon>
+#include <QStyle>
+#include <QMenu>
+#include <QAction>
+#include <QCloseEvent>
 
 #include <iostream>
 #include <string>
 
-#include "mylib.hpp"
 #include "ui_mainwindow.h"
 
 using namespace std;
@@ -45,7 +51,14 @@ public:
     void    setPosicao( int valor );
     int     tocar_pausarMusica( void );
 
+protected:
+    void    closeEvent( QCloseEvent *event ) override;
+
 private slots:
+    // bandeja do sistema funcs
+    void trayIconActivated( QSystemTrayIcon::ActivationReason reason );
+    void showNormal( void );
+
     void on_sliderVolume_valueChanged(int value);
 
     void on_btnEscolher_Musica_clicked();
@@ -70,9 +83,19 @@ private slots:
 
     void on_actionCreditos_triggered();
 
+    void on_actionSair_triggered();
+
 private:
     Ui::MainWindow  *ui;
 
+    // bandeja do sistema var(s)
+    QSystemTrayIcon *trayIcon;
+    QMenu           *trayMenu;
+    QAction         *showAction;
+    QAction         *quitAction;
+    void            createTrayIcon();
+
+    bool            isQuitting;
     bool            sliderTempoMovendo;
 
     QString         arquivo;

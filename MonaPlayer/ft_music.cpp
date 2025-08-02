@@ -10,8 +10,10 @@ void    MainWindow::printMsg( const string & msg ) {
 // ================================== Player ==================================
 
 bool    MainWindow::setArquivo( void ) {
-    QString arquivo = QFileDialog::getOpenFileName(nullptr, "Selecione um arquivo", "", "Arquivos MP3 (*.mp3)");
     bool estado = false;
+    QString arquivo = QFileDialog::getOpenFileName(nullptr, "Selecione um arquivo", "",
+        "Arquivos de Áudio (*.mp3 *.wav *.flac *.ogg *.m4a);;Todos os arquivos (*.*)"
+    );
 
     if (!arquivo.isEmpty()) {
         this->arquivo = arquivo;
@@ -23,10 +25,9 @@ bool    MainWindow::setArquivo( void ) {
 }
 
 void    MainWindow::setVolume( int valor ) {
-    if (valor < 0) valor = 0;
-    else if (valor > 100) valor = 100;
+    valor = qBound(0, valor, 100);
     this->player->setVolume(valor);
-    this->printMsg( "Volume da música alterado para: " + num_to_string(valor));
+    this->printMsg("Volume da música alterado para: " + to_string(valor));
     return ;
 }
 
@@ -52,10 +53,9 @@ int    MainWindow::tocar_pausarMusica( void ) {
 void    MainWindow::setPosicao( int valor ) {
     int tempo = this->player->duration();
 
-    if (valor < 0) valor = 0;
-    else if (valor > tempo) valor = tempo;
+    valor = qBound(0, valor, tempo);
     this->player->setPosition(valor);
-    this->printMsg("Posição alterada para: " + num_to_string(valor));
+    this->printMsg("Posição alterada para: " + to_string(valor));
 }
 
 // ==================================== UI AUX funcs ====================================
